@@ -2,18 +2,24 @@
   "version": 3,
   "configurePresets": [
     {
-      "name": "Debug",
-      "displayName": "Windows MSVC (Debug)",
-      "generator": "Visual Studio 18 2026",
-      "binaryDir": "${sourceDir}/build",
-      "architecture": "x64",
-      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
-    }
-  ],
-  "buildPresets": [
+      "name": "debug",
+      "displayName": "Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/debug",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
     {
-      "name": "Debug",
-      "configurePreset": "Debug"
+      "name": "relwithdebinfo",
+      "displayName": "RelWithDebInfo",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/relwithdeb",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
     }
   ]
 }

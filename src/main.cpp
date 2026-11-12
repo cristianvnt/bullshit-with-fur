@@ -1,16 +1,13 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <iostream>
+#include "Game/Game.h"
+#include "Utils/Settings.h"
 
 int main()
 {
-    if (!glfwInit())
-    {
-        std::cerr << "GLFW failed to init\n";
-        return 1;
-    }
+	Settings settings = LoadSettings("settings.conf");
 
-    std::cout << "GLFW: " << glfwGetVersionString() << "\n";
-    glfwTerminate();
+	Game game;
+	if (!game.Init(settings))
+		return 1;
+
+	game.Run();
 }
