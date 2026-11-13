@@ -30,12 +30,12 @@ namespace
 	}
 }
 
-void GLLog::LogShader(unsigned int shader)
+bool GLLog::LogShader(unsigned int shader)
 {
 	int success;
 	GL_CHECK(glGetShaderiv(shader, GL_COMPILE_STATUS, &success));
 	if (success)
-		return;
+		return true;
 
 	int length = 0;
 	GL_CHECK(glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length));
@@ -60,15 +60,16 @@ void GLLog::LogShader(unsigned int shader)
 			}
 		}();
 
-	std::cerr << "ERROR::SHADER:: ->" << typeStr << " <- ::COMPILATION_FAILED\n" << infoLog << "\n";
+	std::cerr << "ERROR::SHADER:: -> " << typeStr << " <- ::COMPILATION_FAILED\n" << infoLog << "\n";
+	return false;
 }
 
-void GLLog::LogProgram(unsigned int program)
+bool GLLog::LogProgram(unsigned int program)
 {
 	int success;
 	GL_CHECK(glGetProgramiv(program, GL_LINK_STATUS, &success));
 	if (success)
-		return;
+		return true;
 
 	int length = 0;
 	GL_CHECK(glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length));
@@ -79,6 +80,7 @@ void GLLog::LogProgram(unsigned int program)
 	infoLog.resize(written);
 
 	std::cerr << "ERROR::PROGRAM::LINKING_FAILED ->\n" << infoLog << " <- \n";
+	return false;
 }
 
 void GLError::ClearError()

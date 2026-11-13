@@ -4,8 +4,8 @@
 
 namespace GLLog
 {
-	void LogShader(unsigned int shader);
-	void LogProgram(unsigned int program);
+	bool LogShader(unsigned int shader);
+	bool LogProgram(unsigned int program);
 }
 
 namespace GLError
